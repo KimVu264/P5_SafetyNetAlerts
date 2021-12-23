@@ -2,11 +2,11 @@ package com.safetynet.safetynetalerts.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.jsoniter.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,11 +27,12 @@ public class MedicalRecord {
 	private Date birthdate;
 
 	@ElementCollection
-	//@JsonProperty("collection")
-	//@JsonFormat(shape = JsonFormat.Shape.ARRAY)
-	private List<String> medications;
+	//@JsonProperty( "medications" )
+	private List<String> medications = new ArrayList<>();
 
 	@ElementCollection
-	//@JsonProperty("collection")
-	private List<String> allergies;
+	//@JsonProperty( "allergies" )
+	private List<String> allergies = new ArrayList<>();
+
+
 }

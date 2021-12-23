@@ -44,6 +44,5 @@ public class PersonService {
 
 	public void deletePerson (String firstName, String lastName) {
 		personDao.deletePersonByFirstNameAndLastName(firstName,lastName);
-
 	}
 }

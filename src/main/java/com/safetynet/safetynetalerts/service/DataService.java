@@ -18,10 +18,11 @@ public class DataService
 
 	private MedicalRecordService medicalRecordService;
 
-   public  DataService(PersonService personService, FireStationService fireStationService)
+   public  DataService(PersonService personService, FireStationService fireStationService, MedicalRecordService medicalRecordService)
    {
 	   this.personService = personService;
 	   this.fireStationService = fireStationService;
+	   this.medicalRecordService = medicalRecordService;
    }
 
 	public List<Person> savePerson(List<Person> persons) {
