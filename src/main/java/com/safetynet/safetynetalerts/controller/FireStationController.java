@@ -52,7 +52,7 @@ public class FireStationController
 			fireStation.setAddress(fire.getAddress());
 			return new ResponseEntity<>(fireStationService.updateFireStation(fireStation), HttpStatus.OK);
 		}
-		catch(EntityNotFoundException e)
+		catch (EntityNotFoundException e)
 		{
 			logger.error("Error: Id is not valid");
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
