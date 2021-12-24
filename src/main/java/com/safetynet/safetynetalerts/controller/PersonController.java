@@ -17,6 +17,7 @@ public class PersonController {
 
 	private static final Logger logger = LogManager.getLogger("PersonController");
 
+	@Autowired
 	private PersonService personService;
 
 	public PersonController(PersonService personService) {
@@ -24,7 +25,7 @@ public class PersonController {
 	}
 
 	// Ajouter une nouvelle personne
-	@PostMapping( "/addPerson")
+	@PostMapping( "/add")
 	public ResponseEntity<Object> addPerson (@RequestBody Person person) {
 		//Person temPerson = new Person();
 		//temPerson.setFirstName(person.getFirstName());
@@ -40,7 +41,7 @@ public class PersonController {
 	}
 
 	// Mettre à jour une personne existante
-	@PutMapping( "/updatePerson/")
+	@PutMapping( "/update/")
 	public ResponseEntity<Object> updatePerson(@RequestBody Person person) {
 		Person per = personService.getPersonById(person.getId());
 		if(per == null){
@@ -55,7 +56,7 @@ public class PersonController {
 	}
 
 	// Delete une personne par nom et prénom
-	@DeleteMapping ( "/deletePerson/{firstName}/{lastName}")
+	@DeleteMapping ( "/delete/{firstName}/{lastName}")
 	public void deletePerson (@PathVariable String firstName, @PathVariable String lastName) {
 		//Person temPerson = new Person();
 		//temPerson.setFirstName(firstName);
