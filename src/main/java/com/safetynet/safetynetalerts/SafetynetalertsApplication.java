@@ -2,57 +2,39 @@ package com.safetynet.safetynetalerts;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
 import com.safetynet.safetynetalerts.model.FireStation;
 import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.service.DataService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.List;
 
 @SpringBootApplication
 public class SafetynetalertsApplication {
 
+	@Value("${path.data.json}")
+	private String getPATH;
+
 	public static void main(String[] args)
 	{
 		SpringApplication.run(SafetynetalertsApplication.class, args);
 	}
-	/*
-	public int calc(JsonIterator iter) throws IOException
-	{
-		Any obj = JsonIterator.deserialize("[1,2,3]");
-		int totalTagsCount = 0;
-		for(String field = iter.readObject(); field != null; field = iter.readObject())
-		{
-			switch(field)
-			{
-				case "persons":
-				case "firestations":
-				case "medicalrecords":
-					while(iter.readArray())
-						iter.skip();
-					totalTagsCount++;
-					break;
 
-				default:
-					iter.skip();
-			}
-		}
-			return totalTagsCount;
-		}
-*/
 	@Bean
 	CommandLineRunner runner(DataService dataService) {
 		return args -> {
 			// read json and write to db
+			/*
 			ObjectMapper mapper = new ObjectMapper();
 			TypeReference<List<Person>> typeReference = new TypeReference<List<Person>>(){};
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/persons.json");
@@ -73,10 +55,40 @@ public class SafetynetalertsApplication {
 				List<MedicalRecord> medicalRecords = mapper.readValue(inputStream2,typeReference2);
 				dataService.saveMedicalRecord(medicalRecords);
 
-				System.out.println("Users Saved!");
+				System.out.println("Data Saved!");
 
 			} catch (IOException e){
 				System.out.println("Unable to save users: " + e.getMessage());
+			}
+
+			 */
+
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(this.getPATH));
+			Gson gson = new Gson();
+			Object jsonObject = gson.fromJson(bufferedReader, Object.class);
+			String jsonString = gson.toJson(jsonObject);
+			ObjectMapper objectMapper = new ObjectMapper();
+			Any jsonAny = JsonIterator.deserialize(jsonString);
+
+			Any jsonPerson = jsonAny.get("persons");
+			List<Person> persons = objectMapper.readValue(jsonPerson.toString(), new TypeReference<List<Person>>() {
+			});
+
+			Any jsonFireStation = jsonAny.get("firestations");
+			List<FireStation> fireStations = objectMapper.readValue(jsonFireStation.toString(), new TypeReference<List<FireStation>>() {
+			});
+
+			Any jsonMedicalRecord = jsonAny.get("medicalrecords");
+			List<MedicalRecord> medicalRecords = objectMapper.readValue(jsonMedicalRecord.toString(), new TypeReference<List<MedicalRecord>>() {
+			});
+
+			try {
+				dataService.savePerson(persons);
+				dataService.saveFireStation(fireStations);
+				dataService.saveMedicalRecord(medicalRecords);
+				System.out.println("Data Saved!");
+			} catch (Exception ex) {
+				System.out.println("An error occurred while saving data");
 			}
 		};
 	}

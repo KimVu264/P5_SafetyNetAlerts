@@ -12,7 +12,7 @@ public interface PersonDao extends JpaRepository<Person, Integer>
 	@Query("delete FROM  Person p WHERE p.firstName = ?1 and p.lastName = ?2 ")
 
 	@Modifying
-	void deletePersonByFirstNameAndLastName(String firstName,String lastName);
+	int deletePersonByFirstNameAndLastName(String firstName,String lastName);
 
 	Person getPersonByFirstNameAndLastName(String firstName,String lastName);
 

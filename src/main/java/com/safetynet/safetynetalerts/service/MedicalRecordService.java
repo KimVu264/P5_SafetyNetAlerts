@@ -17,10 +17,6 @@ public class MedicalRecordService
 		this.medicalRecordDao = medicalRecordDao;
 	}
 
-	public Iterable<MedicalRecord> list() {
-		return medicalRecordDao.findAll();
-	}
-
 	public List<MedicalRecord> save (List<MedicalRecord> medicalRecords) {
 		return medicalRecordDao.saveAll(medicalRecords);
 	}
@@ -29,7 +25,7 @@ public class MedicalRecordService
 		return medicalRecordDao.getById(id);
 	}
 
-	public MedicalRecord getMedicalRecord(String firstName, String lastName){
+	public MedicalRecord getMedicalRecordByName(String firstName, String lastName){
 		return medicalRecordDao.findByFirstNameAndLastName(firstName, lastName);
 	}
 
@@ -41,7 +37,7 @@ public class MedicalRecordService
 		return medicalRecordDao.save(medicalRecord);
 	}
 
-	public void deleteMedicalRecord (String firstName, String lastName) {
-		medicalRecordDao.deleteAllByFirstNameAndLastName(firstName,lastName);
+	public void deleteMedicalRecordById(Integer id) {
+		medicalRecordDao.deleteById(id);
 	}
 }

@@ -85,14 +85,4 @@ public class FireStationController
 			logger.error("Error: Station does not exist");
 	}
 
-	/*
-	@GetMapping("/firestation?stationNumber=<station>")
-	public @ResponseBody List<Person> listPersonByStationNumber (@RequestParam ("station") int station){
-		List<FireStation> fireStation = fireStationService.getListStation(station);
-
-
-	}
-
-	 */
-
 }

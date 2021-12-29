@@ -21,7 +21,7 @@ public class PersonService {
 		return personDao.getById(id);
 	}
 
-	public Person getPersonBy( String firstName, String lastName) {
+	public Person getPersonByName( String firstName, String lastName) {
 		return personDao.getPersonByFirstNameAndLastName(firstName, lastName);
 	}
 

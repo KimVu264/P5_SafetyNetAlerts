@@ -12,30 +12,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/medicalRecord")
-public class MedicalRecordController
-{
+@RequestMapping("/medicalRecord/")
+public class MedicalRecordController {
 	private static final Logger logger = LogManager.getLogger("MedicalRecordController");
 
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 
-	public MedicalRecordController(MedicalRecordService medicalRecordService)
-	{
+	public MedicalRecordController(MedicalRecordService medicalRecordService) {
 		this.medicalRecordService = medicalRecordService;
 	}
 
-	@GetMapping("/list")
-	public Iterable<MedicalRecord> list()
-	{
-		return medicalRecordService.list();
-	}
-
 	// Ajouter un dossier médical
-	@PostMapping("/add")
-	public ResponseEntity<Object> addDossier(@RequestBody MedicalRecord medicalRecord)
-	{
-		MedicalRecord mediRecord = medicalRecordService.getMedicalRecord(medicalRecord.getFirstName(), medicalRecord.getLastName());
+	@PostMapping("add")
+	public ResponseEntity<Object> addDossierMedical(@RequestBody MedicalRecord medicalRecord) {
+		MedicalRecord mediRecord = medicalRecordService.getMedicalRecordByName(medicalRecord.getFirstName(), medicalRecord.getLastName());
 		if(mediRecord == null)
 		{
 			logger.info("Dossier is added successfully");
@@ -46,9 +37,8 @@ public class MedicalRecordController
 	}
 
 	// Mettre à jour un dossier existant
-	@PutMapping("/updateDossier/")
-	public ResponseEntity<Object> updateDossier(@RequestBody MedicalRecord medicalRecord)
-	{
+	@PutMapping("update")
+	public ResponseEntity<Object> updateDossierMedical(@RequestBody MedicalRecord medicalRecord) {
 		try
 		{
 			MedicalRecord medRecord = medicalRecordService.getMedicalRecordById(medicalRecord.getId());
@@ -66,15 +56,22 @@ public class MedicalRecordController
 	}
 
 	// Delete un dossier par nom et prénom
-	//TODO: Fix bug here
-	@DeleteMapping("/deleteDossier/{firstName}/{lastName}")
-	public void deleteDossier(@PathVariable String firstName, @PathVariable String lastName)
-	{
-		MedicalRecord medRecord = medicalRecordService.getMedicalRecord(firstName, lastName);
-		if(medRecord == null)
-		{
+	@DeleteMapping("delete/{firstName}/{lastName}")
+	public void deleteDossierMedical(@PathVariable String firstName, @PathVariable String lastName) {
+		MedicalRecord medRecord = medicalRecordService.getMedicalRecordByName(firstName, lastName);
+		if(medRecord != null) {
+			try
+			{
+				medicalRecordService.deleteMedicalRecordById(medRecord.getId());
+				//medicalRecordService.deleteMedicalRecord(firstName, lastName);
+				logger.info("Delete dossier successfully");
+			}
+			catch (Exception ex)
+			{
+				logger.info("An error occurred while deleting Medical Record");
+			}
+		} else {
 			logger.error("Error: firstName or lastName is not valid");
 		}
-		medicalRecordService.deleteMedicalRecord(firstName, lastName);
 	}
 }
