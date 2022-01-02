@@ -28,17 +28,9 @@ public class MedicalRecord {
 	private Date birthdate;
 
 	@ElementCollection
-	//@Cascade(org.hibernate.annotations.CascadeType.DELETE)
-	//@JoinTable(name = "medical_record_medications", joinColumns = @JoinColumn(name = "id"))
-	//@JsonProperty( "medications" )
-	//private List<String> medications = new ArrayList<>();
 	private List<String> medications;
 
 	@ElementCollection
-	//@Cascade(org.hibernate.annotations.CascadeType.DELETE)
-	//@JoinTable(name = "medical_record_allergies", joinColumns = @JoinColumn(name = "id"))
-	//@JsonProperty( "allergies" )
-	//private List<String> allergies = new ArrayList<>();
 	private List<String> allergies;
 
 
