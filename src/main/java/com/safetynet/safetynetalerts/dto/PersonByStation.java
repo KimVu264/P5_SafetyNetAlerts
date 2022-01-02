@@ -7,7 +7,8 @@ import java.util.List;
 
 @Data
 public class PersonByStation {
-	private List<Person> persons;
+
+	private List<PersonFullNameWithContacts> persons;
 	private int numberOfAdults;
 	private int numberOfChildren;
 }

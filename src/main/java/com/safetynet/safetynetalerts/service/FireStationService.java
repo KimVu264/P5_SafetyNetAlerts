@@ -2,6 +2,7 @@ package com.safetynet.safetynetalerts.service;
 
 import com.safetynet.safetynetalerts.dao.FireStationDao;
 import com.safetynet.safetynetalerts.dao.MedicalRecordDao;
+import com.safetynet.safetynetalerts.dto.PersonFullNameWithContacts;
 import com.safetynet.safetynetalerts.model.FireStation;
 import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.model.Person;
@@ -39,10 +40,6 @@ public class FireStationService
 		return fireStationDao.findByAddress(address);
 	}
 
-	//public List<FireStation> getListStation(int station){
-	//	return fireStationDao.findAllByStation(station);
-	//}
-
 	public FireStation addFireStation( FireStation fireStation) {
 		return fireStationDao.save(fireStation);
 	}
@@ -74,9 +71,9 @@ public class FireStationService
 		return fireStations;
 	}
 
-	public int countAdults(List<Person> persons) {
+	public int countAdults(List<PersonFullNameWithContacts> persons) {
 		int adults = 0;
-		for(Person per: persons){
+		for(PersonFullNameWithContacts per: persons){
 			MedicalRecord medicalRecord = medicalRecordDao.findByFirstNameAndLastName(per.getFirstName(), per.getLastName());
 			int age = computeAge(medicalRecord);
 			if(isAdult(age)){
@@ -88,6 +85,11 @@ public class FireStationService
 
 	private boolean isAdult(int age) {
 		return age >= 18;
+	}
+
+
+	public List<String> getPhonesByStation(int firestation) {
+		return fireStationDao.getPhonesByStation(firestation);
 	}
 
 

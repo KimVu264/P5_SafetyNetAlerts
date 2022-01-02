@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 public class ChildByAddress {
-	private List<PersonWithAge> children;
+	private List<PersonFullNameWithAge> children;
 	private List<Person> adults;
 }

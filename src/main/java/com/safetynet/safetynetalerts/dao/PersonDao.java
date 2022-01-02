@@ -15,11 +15,9 @@ public interface PersonDao extends JpaRepository<Person, Integer>
 	@Modifying
 	int deletePersonByFirstNameAndLastName(String firstName,String lastName);
 
-	Person getPersonByFirstNameAndLastName(String firstName,String lastName);
+	Person findByFirstNameAndLastName(String firstName,String lastName);
 
 	//Person findPerson(Person person);
-
-	List<Person> getPersonByAddress (String address);
 
 	@Query(value = "SELECT DISTINCT * FROM PERSONS  INNER JOIN MEDICALRECORDS ON PERSONS.FIRST_NAME = MEDICALRECORDS.FIRST_NAME AND PERSONS.LAST_NAME = MEDICALRECORDS.LAST_NAME WHERE PERSONS.ADDRESS = ?1 AND YEAR(CURRENT_TIMESTAMP()) - YEAR(MEDICALRECORDS.BIRTHDATE) >= 18", nativeQuery = true)
 	List<Person> getAdultByAddress(String address);
@@ -27,4 +25,9 @@ public interface PersonDao extends JpaRepository<Person, Integer>
 	@Query(value = "SELECT DISTINCT * FROM PERSONS  INNER JOIN MEDICALRECORDS ON PERSONS.FIRST_NAME = MEDICALRECORDS.FIRST_NAME AND PERSONS.LAST_NAME = MEDICALRECORDS.LAST_NAME WHERE PERSONS.ADDRESS = ?1 AND YEAR(CURRENT_TIMESTAMP()) - YEAR(MEDICALRECORDS.BIRTHDATE) < 18", nativeQuery = true)
 	List<Person> getChildByAddress(String address);
 
+	@Query("SELECT p FROM Person p WHERE p.address = ?1")
+	List<Person> findByAddress(String address);
+
+	@Query(value = "SELECT DISTINCT p.email FROM Person p WHERE p.city = ?1")
+	List<String> getListMailByCity(String city);
 }

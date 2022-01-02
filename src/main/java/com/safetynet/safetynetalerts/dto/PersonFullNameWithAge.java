@@ -3,8 +3,7 @@ package com.safetynet.safetynetalerts.dto;
 import lombok.Data;
 
 @Data
-public class PersonWithAge {
-	private String firstName;
-	private String lastName;
+public class PersonFullNameWithAge extends PersonFullName {
+
 	private int age;
 }
