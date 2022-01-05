@@ -47,7 +47,7 @@ public class PersonService {
 		return personDao.findPerson(person);
 	} */
 
-	public List<Person> save (List<Person> persons) {
+	public List<Person> saveAll (List<Person> persons) {
 		return personDao.saveAll(persons);
 	}
 

@@ -2,7 +2,6 @@ package com.safetynet.safetynetalerts.controller;
 
 import com.safetynet.safetynetalerts.dto.*;
 import com.safetynet.safetynetalerts.model.FireStation;
-import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.service.FireStationService;
 import com.safetynet.safetynetalerts.service.PersonService;
 import org.apache.logging.log4j.LogManager;
@@ -82,7 +81,7 @@ public class SafetyController {
 
 	// http://localhost:8080/flood/station?stations=<a list of station_numbers>
 
-	@GetMapping("/flood/stations")
+	@GetMapping("/flood/station")
 	public @ResponseBody
 	List<List<Household>> getFullInfosByStations(@RequestParam(value = "stations") int[] stations) {
 		List<List<Household>> list = new ArrayList<>();

@@ -26,17 +26,17 @@ public class DataService
    }
 
 	public List<Person> savePerson(List<Person> persons) {
-		List<Person> personList= personService.save(persons);
+		List<Person> personList= personService.saveAll(persons);
 		return personList;
 	};
 
 	public List<FireStation> saveFireStation(List<FireStation> fireStations) {
-		List<FireStation> fireStationList = fireStationService.save(fireStations);
+		List<FireStation> fireStationList = fireStationService.saveAll(fireStations);
 		return fireStationList;
 	};
 
 	public List<MedicalRecord> saveMedicalRecord(List<MedicalRecord> medicalRecords) {
-		List<MedicalRecord> medicalRecordList = medicalRecordService.save(medicalRecords);
+		List<MedicalRecord> medicalRecordList = medicalRecordService.saveAll(medicalRecords);
 		return medicalRecordList;
 	};
 }

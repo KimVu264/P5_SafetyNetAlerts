@@ -17,7 +17,7 @@ public class MedicalRecordService
 		this.medicalRecordDao = medicalRecordDao;
 	}
 
-	public List<MedicalRecord> save (List<MedicalRecord> medicalRecords) {
+	public List<MedicalRecord> saveAll (List<MedicalRecord> medicalRecords) {
 		return medicalRecordDao.saveAll(medicalRecords);
 	}
 

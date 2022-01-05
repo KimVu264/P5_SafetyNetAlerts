@@ -32,7 +32,7 @@ public class FireStationService
 		return fireStationDao.save(fireStation);
 	}
 
-	public List<FireStation> save (List<FireStation> fireStations) {
+	public List<FireStation> saveAll (List<FireStation> fireStations) {
 		return fireStationDao.saveAll(fireStations);
 	}
 
