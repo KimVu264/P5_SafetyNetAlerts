@@ -95,8 +95,7 @@ public class SafetyController {
 	// http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>
 
 	@GetMapping("/personInfo")
-	public @ResponseBody
-	PersonInfoAddress getInfoByName(@RequestParam(value = "firstName") String firstName,
+	public PersonInfoAddress getInfoByName(@RequestParam(value = "firstName") String firstName,
 	                                  @RequestParam(value = "lastName") String lastName) {
 		return personService.getFullInfo(firstName, lastName);
 	}

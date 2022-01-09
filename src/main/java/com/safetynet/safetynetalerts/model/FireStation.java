@@ -1,6 +1,6 @@
 package com.safetynet.safetynetalerts.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Data
+@Getter
+@EqualsAndHashCode
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "firestations")
 public class FireStation {
 

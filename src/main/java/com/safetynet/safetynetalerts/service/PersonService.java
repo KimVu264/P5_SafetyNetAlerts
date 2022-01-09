@@ -21,17 +21,16 @@ import static com.safetynet.safetynetalerts.util.DateUtil.computeAge;
 @Transactional
 public class PersonService {
 
-	@Autowired
-	private PersonDao personDao;
+	private final PersonDao personDao;
 
-	@Autowired
-	private FireStationDao fireStationDao;
+	private final FireStationDao fireStationDao;
 
-	@Autowired
-	private MedicalRecordDao medicalRecordDao;
+	private final MedicalRecordDao medicalRecordDao;
 
-	public PersonService (PersonDao personDao) {
+	public PersonService(PersonDao personDao, FireStationDao fireStationDao, MedicalRecordDao medicalRecordDao) {
 		this.personDao = personDao;
+		this.fireStationDao = fireStationDao;
+		this.medicalRecordDao = medicalRecordDao;
 	}
 
 	public Person getPersonById (int id) {

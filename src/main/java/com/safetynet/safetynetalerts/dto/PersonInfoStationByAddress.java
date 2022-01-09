@@ -1,10 +1,16 @@
 package com.safetynet.safetynetalerts.dto;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@EqualsAndHashCode
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PersonInfoStationByAddress {
 
 	private List<PersonInfoPhone> persons;

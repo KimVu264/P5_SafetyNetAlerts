@@ -1,14 +1,18 @@
 package com.safetynet.safetynetalerts.dto;
 
-import com.safetynet.safetynetalerts.model.Person;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
 public class PersonByStation {
 
-	private List<PersonFullNameWithContacts> persons;
-	private int numberOfAdults;
-	private int numberOfChildren;
+    private List<PersonFullNameWithContacts> persons;
+    private int numberOfAdults;
+    private int numberOfChildren;
 }

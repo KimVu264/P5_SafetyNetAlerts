@@ -1,10 +1,17 @@
 package com.safetynet.safetynetalerts.dto;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@EqualsAndHashCode
+@Setter
+@SuperBuilder
+@NoArgsConstructor
 public class PersonInfo {
 
 	private String lastName;
